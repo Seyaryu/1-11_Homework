@@ -1,0 +1,68 @@
+#topscreen {
+    display: flex;
+    align-items: top;
+    width: 100%;
+    justify-content: space-between;
+
+}
+
+h1 {
+
+    margin-top: 3em;
+}
+
+p {
+    margin: 0;
+}
+
+#highscore {
+
+    float: left;
+    color: royalblue;
+
+}
+
+#highscore:hover {
+
+    float: left;
+    color: royalblue;
+    cursor: pointer;
+
+}
+
+
+#time {
+
+    float:right;
+
+
+}
+
+#quiz {
+
+    display: block;
+   text-align: center;
+   margin: 1em;
+   
+}
+
+button {
+
+    background-color: slateblue;
+    color: white;
+    margin: .25em;
+}
+
+.answers {
+    
+    visibility: hidden;
+    align-items: center;
+
+}
+
+#start_quiz {
+
+    margin-top: 1em;
+    visibility: visible;
+
+}
