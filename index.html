@@ -11,7 +11,7 @@
     
     <section id = "topscreen">
             
-        <p id = "highscore">View Highscores</p>
+        <a href = "#" id = "highscoreSelect">View Highscores</a>
 
         <p id = "time">Time: <span id = "timer">75</span></p>
 
@@ -21,7 +21,7 @@
         <h1 id = "question">Coding Quiz Challenge</h1>
         
         <p id = "description">Let's test your knowledge on the basics of Javascript.<br>
-        Please answer the following questions, and compare your score to others!</p> 
+        Please answer the following questions, and compare your score to others!</p>
         <button id = "start_quiz">Begin Quiz</button><br>
         <section class = "answers">
             <button id = "answer1">Answer 1</button><br>
@@ -30,6 +30,11 @@
             <button id = "answer4">Answer 4</button><br>
         </section>   
         <p id = "answerResponse"></p>
+        <p id = "initialsInput">Please enter your initials: <input type="text" id = "initials"> 
+        <button type= "submit" id = "submitInitials">Submit</button></p>
+    </section>
+    <section id = "highScores">
+        <ul id = "listOfHighScores"></ul>
     </section>
     <script src="script.js"></script>
 

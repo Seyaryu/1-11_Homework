@@ -15,14 +15,14 @@ p {
     margin: 0;
 }
 
-#highscore {
+#highscoreSelect {
 
     float: left;
     color: royalblue;
 
 }
 
-#highscore:hover {
+#highscoreSelect:hover {
 
     float: left;
     color: royalblue;
@@ -64,5 +64,17 @@ button {
 
     margin-top: 1em;
     visibility: visible;
+
+}
+
+#highScores {
+
+    display: block;
+    justify-content: center;
+}
+
+#initialsInput {
+
+    visibility: hidden;
 
 }

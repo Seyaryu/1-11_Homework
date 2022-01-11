@@ -1,5 +1,7 @@
 //code inspired by another user on github.  Original code is left commented to show work.  Credit at bottom of page.
-var highscore = document.querySelector("#highscore");
+var highscore = document.querySelector("#highscoreSelect");
+var highScores = document.querySelector("#highScores");
+var listOfHighScores = document.querySelector("#listOfHighScores");
 var timer = document.querySelector("#timer");
 var quiz = document.querySelector("#quiz");
 var question = document.querySelector("#question");
@@ -10,11 +12,14 @@ var answer1 = document.querySelector("#answer1");
 var answer2 = document.querySelector("#answer2");
 var answer3 = document.querySelector("#answer3");
 var answer4 = document.querySelector("#answer4");
-var response = document.querySelector("answerResponse");
+var response = document.querySelector("#answerResponse");
 response = "";
 var score = 0;
 var timeLeft;
 var i;
+var initialsInput = document.querySelector("#initialsInput");
+var initials = document.querySelector("#initials");
+var submit = document.querySelector("#submitInitials");
 
 var test = [
 
@@ -59,13 +64,18 @@ startQuiz.addEventListener("click", function(event) {
 
     description.textContent = "";
 
-    runTest();
+    runTest(); 
 
 });
-answer1.addEventListener("click", checkAnswer(0));
-answer2.addEventListener("click", checkAnswer(1));
-answer3.addEventListener("click", checkAnswer(2));
-answer4.addEventListener("click", checkAnswer(3));
+
+/*This part below gave me a headache
+originally, I put down "answer1.addEventListener("click", checkAnswer(0));" 
+which returned "null".
+Had to ask a friend for help, and he explained that i cant call a function with the number in the argument. */
+answer1.addEventListener("click", () => checkAnswer(0));
+answer2.addEventListener("click", () => checkAnswer(1));
+answer3.addEventListener("click", () => checkAnswer(2));
+answer4.addEventListener("click", () => checkAnswer(3));
 
 function countdown() {
 
@@ -76,8 +86,8 @@ function countdown() {
             timeLeft--;
         } else {
             timer.textContent = 0;
-            clearInterval(timeInterval);
             description.textContent = "You ran out of time!";
+            clearInterval(timeInterval);
             gameEnd();
         }  
 
@@ -129,7 +139,6 @@ function runTest() {
 
 function checkAnswer(answer) {
 
-
     if (test[i].correct === test[i].answers[answer]) {
         
         score++;
@@ -143,14 +152,10 @@ function checkAnswer(answer) {
     }
     i++;
 
-    if (i < test.length) {
-        
+    if (i < test.length) { 
         runTest();
-        
     } else {
-
         gameEnd();
-
     }
 
 };
@@ -164,12 +169,73 @@ function checkAnswer(answer) {
 
 function gameEnd() {
 
+    clearTimeout(countdown());
+
     response.textContent = "";
     question.textContent = "Your final score is: " + score;
     
     answerButtons.style.visibility = "hidden";
-    startQuiz.style.visibility = "visible";
+
+    initialsInput.style.visibility = "visible";
 
 };
 
+function saveScore() {
 
+    event.preventDefault();
+
+    if (initialsInput === "") {
+        alert("please enter your intials.")
+        return
+    } 
+    
+    var storedScores = localStorage.getItem("high scores");
+    var scoresArray;
+
+    if (storedScores === null) {
+        scoresArray = [];
+    }else {
+        scoresArray = JSON.parse(storedScores);
+    }
+
+    userScore = {
+        initials: initialsInput.value,
+        score: score
+    }
+
+    scoresArray.push(userScore);
+
+    var scoresToJSON = JSON.stringify(scoresArray);
+    localStorage.setItem("high scores", scoresToJSON);
+}
+
+submit.addEventListener("click", function() {
+
+    saveScore()
+
+});
+
+highscore.addEventListener("click", function() {
+  
+    var savedScores = localStorage.getItem("high scores");
+
+    if (savedScores === null) {
+
+        alert("There are no scores listed yet. Start Playing!");
+
+    } else {
+
+        var storedScores = JSON.parse(savedScores);
+
+        for(i=0; i < storedScores; i++) {
+            var newScore = document.createElement("p");
+            newScore.innerHTML = storedScores[i].initials + ": " + storedScores[i].score;
+            listOfHighScores.appendChild(newScore);
+        };
+
+    }
+
+});
+
+
+//credit to https://github.com/mmeii/code-quiz/blob/main/Assets/script.js 
