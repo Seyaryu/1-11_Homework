@@ -169,7 +169,7 @@ function checkAnswer(answer) {
 
 function gameEnd() {
 
-    clearTimeout(countdown());
+    clearInterval(countdown());
 
     response.textContent = "";
     question.textContent = "Your final score is: " + score;
@@ -218,6 +218,8 @@ submit.addEventListener("click", function() {
 highscore.addEventListener("click", function() {
   
     var savedScores = localStorage.getItem("high scores");
+
+    highScores.style.visibility = "visible";
 
     if (savedScores === null) {
 
