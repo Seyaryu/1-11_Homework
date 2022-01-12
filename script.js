@@ -20,6 +20,8 @@ var i;
 var initialsInput = document.querySelector("#initialsInput");
 var initials = document.querySelector("#initials");
 var submit = document.querySelector("#submitInitials");
+var gameOngoing = false;
+
 
 var test = [
 
@@ -46,12 +48,20 @@ var test = [
     question: "How do you create a function in JavaScript",
     answers: ["var function", "function myFunction()", "<function>", "call myFunction"],
     correct: "function myFunction()"
+    },
+    {
+    //Question 5
+    question: "How do you add a comment in Javascript?",
+    answers: ["**", "-->", "//", "!^"],
+    correct: "//"
     }
 ];
 
 startQuiz.addEventListener("click", function(event) {
 
     event.preventDefault();
+
+    gameOngoing = true;
 
     answerButtons.style.visibility = "visible";
     startQuiz.style.visibility = "hidden";
@@ -80,6 +90,10 @@ answer4.addEventListener("click", () => checkAnswer(3));
 function countdown() {
 
     var timeInterval = setInterval(function() {
+
+        if (gameOngoing == false) {
+            clearInterval(timeInterval);
+        }
 
         if (timeLeft > 0) {
             timer.textContent = timeLeft;
@@ -169,7 +183,7 @@ function checkAnswer(answer) {
 
 function gameEnd() {
 
-    clearInterval(countdown());
+    gameOngoing = false;
 
     response.textContent = "";
     question.textContent = "Your final score is: " + score;
@@ -182,10 +196,10 @@ function gameEnd() {
 
 function saveScore() {
 
-    event.preventDefault();
+    preventDefault();
 
     if (initialsInput === "") {
-        alert("please enter your intials.")
+        alert("Please enter your intials.")
         return
     } 
     
@@ -219,13 +233,13 @@ highscore.addEventListener("click", function() {
   
     var savedScores = localStorage.getItem("high scores");
 
-    highScores.style.visibility = "visible";
-
     if (savedScores === null) {
 
         alert("There are no scores listed yet. Start Playing!");
 
     } else {
+
+        highScores.style.visibility = "visible";
 
         var storedScores = JSON.parse(savedScores);
 
