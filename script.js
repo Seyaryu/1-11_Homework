@@ -19,7 +19,7 @@ var timeLeft;
 var i;
 var initialsInput = document.querySelector("#initialsInput");
 var initials = document.querySelector("#initials");
-var submit = document.querySelector("#submitInitials");
+var submit = document.querySelector("#submit");
 var gameOngoing = false;
 
 
@@ -196,9 +196,8 @@ function gameEnd() {
 
 function saveScore() {
 
-    preventDefault();
-
-    if (initialsInput === "") {
+    //preventDefault();
+    if (initials.value == "") {
         alert("Please enter your intials.")
         return
     } 
@@ -213,19 +212,25 @@ function saveScore() {
     }
 
     userScore = {
-        initials: initialsInput.value,
+        initials: initials.value,
         score: score
     }
 
+    console.log(userScore);
+
     scoresArray.push(userScore);
 
+    console.log(scoresArray);
+
     var scoresToJSON = JSON.stringify(scoresArray);
+
     localStorage.setItem("high scores", scoresToJSON);
 }
 
 submit.addEventListener("click", function() {
 
-    saveScore()
+    saveScore();
+
 
 });
 
@@ -238,12 +243,13 @@ highscore.addEventListener("click", function() {
         alert("There are no scores listed yet. Start Playing!");
 
     } else {
-
+        
         highScores.style.visibility = "visible";
+        listOfHighScores.style.visibility = "visible";
 
         var storedScores = JSON.parse(savedScores);
 
-        for(i=0; i < storedScores; i++) {
+        for(i=0; i < storedScores.length; i++) {
             var newScore = document.createElement("p");
             newScore.innerHTML = storedScores[i].initials + ": " + storedScores[i].score;
             listOfHighScores.appendChild(newScore);

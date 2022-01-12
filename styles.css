@@ -72,6 +72,8 @@ button {
     display: block;
     justify-content: center;
     visibility: hidden;
+    border: dotted black 2px;
+    width: 20%;
 }
 
 #initialsInput {
